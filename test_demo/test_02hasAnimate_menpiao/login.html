@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+        <!-- SEO -->
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <!-- 苹果 -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+        <meta name="format-detection" content="telephone=no" />
+        <!--移动投影适配-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css/common.css" />
+        <!--<link rel="stylesheet" href="css/index.css" />-->
+        <title>登录</title>
+        <style>
+        	*{
+        		padding:0;margin;0;
+        	}
+        	#Loginwrap{
+        		width: 100%;
+        		height: 100%;
+        		/*background:#eee;*/
+        		position:absolute;
+        		z-index: 10;
+        		top:0;
+        		left: 0;
+        	}
+        	.loginMeng{
+        		width: 100%;
+        		height: 100%;
+        		background:rgba(0,0,0,0.7);
+        		position: absolute;
+        		top:0;
+        		left:0;
+        		z-index: 1;
+        	}
+        	.loginMain{
+        		width: calc(80% - 40px);
+        		height: auto;
+        		position:absolute;
+        		top:50%;
+			left:10%;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+        		z-index: 2;
+        		background:#fff;
+        		padding:35px 20px;
+        	}
+        	.loginClose{
+        		position:absolute;
+        		right:0;
+        		top:-56px;
+        		width: 40px;
+        		height: 40px;
+        	}
+        	.loginClose img{
+    			width: 40px;
+    			height:auto;
+        	}
+        	.loginTel{
+        		margin-bottom:20px;
+        	}
+        	.loginOtm {
+        		width: 100%;
+        		height: 50px;
+        		background: #f4f1f0;
+        		border-radius: 50px;
+        		border: solid 1px #bfbfbf;
+        	}
+        	.loginOtm span{
+        		width: 23%;
+        		height: 100%;
+        		display:inline-block;
+        		float:left;
+        	}
+    		.loginTel img{
+	    		width: 26px;
+	    		height: auto;
+	    		margin:7px 0 0 15px;
+        	}
+        	.loginTest img{
+        		width: 26px;
+        		height: auto;
+        		margin:12px 0 0 15px;
+        	}
+        	.loginOtm input{
+        		width: 70%;
+        		height: 100%;
+        		outline: none;
+        		display:inline-block;
+        		float:left;
+        		background:#f4f1f0;
+        		border:0;
+        		line-height:50px;
+        	}
+        	.loginTest input{
+        		width: 38%;
+        		outline: none;
+        		display:inline-block;
+        		float:left;
+        	}
+    		.loginTest .testBtn{
+    			width: 36%;
+    			height: 70%;
+    			border-radius: 25px;
+            border: solid 1px #fb9a00;
+            display:inline-block;
+            margin-top:7px;
+            line-height: 36px;
+            text-align: center;
+            color: #fb9a00;
+            font-size: 14px;
+    		}
+    		.loginBtn{
+    			width: 100%;
+    			height: 50px;
+    			line-height:50px;
+    			text-align: center;
+    			letter-spacing: 10px;
+    			border-radius: 50px;
+            background-color: #fb9a00;
+            margin-top:32px;
+            color:#fff;
+            font-size:24px
+    		}
+        </style>
+	<body>
+		<div id="Loginwrap">
+			<div class="loginMeng"></div>
+			<div class="loginMain">
+				<div class="loginClose">
+					<img src="img/Group 15 Copy.png" alt="" />
+				</div>
+				<div class="loginTel loginOtm">
+					<span><img src="img/tel.png" alt="" /></span>
+					<input type="tel" placeholder="输入手机号"/>
+				</div>
+				<div class="loginTest loginOtm">
+					<span><img src="img/yanzheng.png" alt="" /></span>
+					<input type="text" placeholder="输入验证码"/>
+					<div class="testBtn">
+						获取验证码
+					</div>
+				</div>
+				<div class="loginBtn">
+					登录
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

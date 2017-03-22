@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta content="telephone=no" name="format-detection" />
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <script type="text/javascript" src="css.js"></script>
+</head>
+<body>
+    <section id="body" style="position: absolute;top:0;left:0;overflow: hidden;">
+       <section class="main-wrap">
+    	 	<section class="main-tv-menu" id="main_tv_menu">
+                 <div class="main-menu-title" id="main_menu_title"><em class="index1"></em><span>中央台</span><em class="index2"></em></div>
+    	 		 <div class="main-menu">
+    		 	  	   <ul class="col_11">
+    		 	  	       <li class="active" _index="0" id="menu0" up="6" down="1" left="10"  right="10"><span><i>1</i>中央一台</span></li>
+    		 	  	       <li _li="li1" _index="1" id="menu1" up="0" down="2" left="10"  right="10"><span><i>2</i>中央二台</span></li>
+    		 	  	       <li _li="li1" _index="2" id="menu2" up="1" down="3" left="10"  right="10"><span><i>3</i>中央三台</span></li>
+    		 	  	       <li _li="li1" _index="3" id="menu3" up="2" down="4" left="10"  right="10"><span><i>4</i>中央四台</span></li>
+    		 	  	   </ul>
+                       <ul class="col_22">
+                           <li _li="li2" _index="4" id="menu4" up="3" down="5" left="10"  right="10"><span><i>5</i>重庆卫视</span></li>
+                           <li _li="li2" _index="5" id="menu5" up="4" down="6" left="10"  right="10"><span><i>6</i>湖南卫视</span></li>
+                           <li _li="li2" _index="6" id="menu6" up="5" down="0" left="10"  right="10"><span><i>7</i>江苏卫视</span></li>
+                       </ul>
+    	 	  	 </div>
+                 <div class="menu-text">按"ok"键显示/关闭列表</div>
+    	 	</section>
+    	 	<section class="main-tv-box" id="main_tv_box">
+    	 		 <div class="page"><img src="images/001.JPG" alt=""></div>
+    	 		 <div class="page"><img src="images/002.JPG" alt=""></div>
+    	 		 <div class="page"><img src="images/003.JPG" alt=""></div>
+    	 		 <div class="page"><img src="images/004.JPG" alt=""></div>
+                 <div class="page"><img src="images/005.JPG" alt=""></div>
+                 <div class="page"><img src="images/006.JPG" alt=""></div>
+                 <div class="page"><img src="images/007.JPG" alt=""></div>
+    	 	</section>
+    	</section>
+    </section>
+    <script type="text/javascript" src="js/jquery.min.2.1.4.js"></script>
+    <script type="text/javascript" src="js/keycode.js"></script>
+    <script>
+         window.onload=function(){ 
+            try{
+              Android.isDispatchKeyCode(1)
+            }catch(e){ 
+            }  
+            document.getElementById("body").style.width = window.innerWidth+"px";
+            document.getElementById("body").style.height = window.innerHeight+"px";
+            if(!localStorage.getItem("tvIndex")){
+               localStorage.setItem("tvIndex",0);
+            }
+            if(!localStorage.getItem("tvFoucsId")){
+               localStorage.setItem("tvFoucsId",0);
+            }  
+            document.onkeydown  = keyFunction;
+            defaultData();
+        }
+        function onKeyDown(code) {//按键功能
+            keyFunction({ keyCode: code });
+        }
+        function keyFunction(event) {  
+           if (event.keyCode == 37 || event.keyCode == code_left) {
+               keyleft();
+               return false;    
+           } else if (event.keyCode == 39 || event.keyCode == code_right) {
+               keyright();
+               return false;      
+           }else if (event.keyCode == 40 || event.keyCode == code_down) {  
+               keydown();     
+               return false;       
+           } else if (event.keyCode == 38 || event.keyCode == code_up) {
+           	   keyup();
+               return false;
+           } else if (event.keyCode == 13 || event.keyCode == code_enter) {
+               keyenter();
+               return false;
+           }else if (event.keyCode == 48 || event.keyCode == code_back) { 
+                keyback();      
+                return false;
+           }else{    
+                return false;
+           }
+        }
+        function keyup() {
+            var pre_index = 0;
+            var $main_tv_menu = $("#main_tv_menu");
+            var $main_tv_box = $("#main_tv_box");
+            var $main_menu_title = $("#main_menu_title");
+            var ul1 = $main_tv_menu.find('.col_11');
+            var ul2 = $main_tv_menu.find('.col_22');
+            var _li = $main_tv_menu.find('li');
+            var len = _li.length;
+            if (localStorage.getItem("tvIndex") == null || localStorage.getItem("tvIndex") == "") {
+               localStorage.setItem("tvIndex",0);
+            }
+            if (localStorage.getItem("tvFoucsId") == null || localStorage.getItem("tvFoucsId") == "") {
+               localStorage.setItem("tvFoucsId",0);
+            }
+            var tvFoucsId = localStorage.getItem("tvFoucsId");
+            var nextpage = $("#menu"+tvFoucsId).attr("up");
+            pre_index = $("#menu"+nextpage).attr("_index");
+            if (nextpage == "" || nextpage == "undefined") {
+                return false;
+            } 
+            localStorage.setItem("tvFoucsId", nextpage);
+            localStorage.setItem("tvIndex", pre_index);
+            if (nextpage > 3) {
+                ul1.hide();
+                ul2.show();
+                $main_menu_title.find('span').text("地方台")
+            }
+            else{
+                ul2.hide();
+                ul1.show();
+                $main_menu_title.find('span').text("中央台")
+            };
+            $main_tv_menu.find('li').removeClass('active');
+            $("#menu"+nextpage).addClass("active");
+            operation($main_tv_box,pre_index);
+	    }
+	    function keydown() {
+	        var next_index = 0;
+	        var $main_tv_menu = $("#main_tv_menu");
+	        var $main_tv_box = $("#main_tv_box");
+            var $main_menu_title = $("#main_menu_title");
+            var ul1 = $main_tv_menu.find('.col_11');
+            var ul2 = $main_tv_menu.find('.col_22');
+	        var _li = $main_tv_menu.find('li');
+	        var len = _li.length;
+	        if (localStorage.getItem("tvIndex") == null || localStorage.getItem("tvIndex") == "") {
+	           localStorage.setItem("tvIndex",0);
+	        }
+            if (localStorage.getItem("tvFoucsId") == null || localStorage.getItem("tvFoucsId") == "") {
+               localStorage.setItem("tvFoucsId",0);
+            }
+	        var tvFoucsId = localStorage.getItem("tvFoucsId");
+            var nextpage = $("#menu"+tvFoucsId).attr("down");
+            next_index = $("#menu"+nextpage).attr("_index");
+	        if (nextpage == "" || nextpage == "undefined") {
+	            return false;
+	        } 
+	        localStorage.setItem("tvFoucsId", nextpage);
+            localStorage.setItem("tvIndex", next_index);
+            if (nextpage > 3) {
+                ul1.hide();
+                ul2.show();
+                $main_menu_title.find('span').text("地方台");
+
+            }
+            else{
+                ul2.hide();
+                ul1.show();
+                $main_menu_title.find('span').text("中央台")
+            };
+            $main_tv_menu.find('li').removeClass('active');
+            $("#menu"+nextpage).addClass("active");
+	        operation($main_tv_box,next_index);
+	    }
+        function keyleft () {
+            var $main_tv_menu = $("#main_tv_menu");
+            var $main_tv_box = $("#main_tv_box");
+            var $main_menu_title = $("#main_menu_title");
+            var ul1 = $main_tv_menu.find('.col_11');
+            var ul2 = $main_tv_menu.find('.col_22');
+            var _li = $main_tv_menu.find('li');
+            var _li1 = ul1.find('li');
+            var _li2 = ul2.find('li');
+            var flag = ul1.is(":visible");
+            if (flag) {
+                ul1.hide();
+                ul2.show();
+                $main_menu_title.find('span').text("地方台");
+                $main_tv_menu.find('li').removeClass('active');
+                _li.eq(_li.length-1).addClass("active");
+                localStorage.setItem("tvIndex",_li.length-1);
+                localStorage.setItem("tvFoucsId",_li.length-1);
+                operation($main_tv_box,_li.length-1);
+            }else{
+                 ul1.show();
+                 ul2.hide();
+                 $main_menu_title.find('span').text("中央台");
+                 $main_tv_menu.find('li').removeClass('active');
+                 _li1.eq(_li1.length-1).addClass("active");
+                 localStorage.setItem("tvIndex",_li1.length-1);
+                 localStorage.setItem("tvFoucsId",_li1.length-1);
+                 operation($main_tv_box,_li1.length-1);
+            };
+        }
+        function keyright () {
+            var $main_tv_menu = $("#main_tv_menu");
+            var $main_tv_box = $("#main_tv_box");
+            var $main_menu_title = $("#main_menu_title");
+            var ul1 = $main_tv_menu.find('.col_11');
+            var ul2 = $main_tv_menu.find('.col_22');
+            var _li1 = ul1.find('li');
+            var _li2 = ul2.find('li');
+            var flag = ul1.is(":visible");
+            if (flag) {
+                ul1.hide();
+                ul2.show();
+                $main_menu_title.find('span').text("地方台");
+                _li2.removeClass('active');
+                _li2.eq(0).addClass("active");
+                localStorage.setItem("tvIndex",_li1.length);
+                localStorage.setItem("tvFoucsId",_li1.length);
+                operation($main_tv_box,_li1.length-1);
+            }else{
+                 ul1.show();
+                 ul2.hide();
+                 $main_menu_title.find('span').text("中央台");
+                 _li1.removeClass('active');
+                 _li1.eq(0).addClass("active");
+                 localStorage.setItem("tvIndex",0);
+                 localStorage.setItem("tvFoucsId",0);
+                 operation($main_tv_box,0);
+            };           
+        }
+        function keyenter() {
+            var $main_tv_menu = $("#main_tv_menu");
+            var _width = $main_tv_menu.width();
+            var _left = parseInt($main_tv_menu.css("left")) ;
+            if(_left == 0 ){
+                $main_tv_menu.animate({"left":- _width},1000);
+            }
+            else{
+               $main_tv_menu.animate({"left": 0},1000);
+            }
+        }
+        function keyback() {
+            //window.location.href = "../YeahInfoIndex.html";
+            try{
+              Android.onBackPressed();
+            }catch(e){ 
+            }  
+        }
+	    function defaultData () {
+	    	var $main_tv_menu = $("#main_tv_menu");
+            var $main_menu_title = $("#main_menu_title");
+            var ul1 = $main_tv_menu.find('.col_11');
+            var ul2 = $main_tv_menu.find('.col_22');
+	    	var $main_tv_box = $("#main_tv_box");
+            var _li = $main_tv_menu.find('li');
+	    	if (localStorage.getItem("tvFoucsId") == null || localStorage.getItem("tvFoucsId") == "") {
+               localStorage.setItem("tvFoucsId",0);
+            }
+            var tvFoucsId = localStorage.getItem("tvFoucsId");
+            if (tvFoucsId > 3) {
+                ul1.hide();
+                ul2.show();
+                $main_menu_title.find('span').text("地方台")
+            }
+            else{
+                ul2.hide();
+                ul1.show();
+                $main_menu_title.find('span').text("中央台")
+            };
+            $main_tv_menu.find('li').removeClass('active');
+            $("#menu"+tvFoucsId).addClass('active');
+            if (tvFoucsId=="" || tvFoucsId == null) {
+                $("#menu0").addClass('active');
+            }else{
+                $("#menu"+tvFoucsId).addClass('active');
+            };
+	        $main_tv_box.find('.page').eq(tvFoucsId).css({"opacity": 1,'display': "block"}).show();
+	    }  
+	    function operation(obj,index) {
+	    	var _this = $(obj);
+            _this.find('.page').eq(index).stop().animate({
+                "opacity": 1,
+                'z-index': 1
+            }, 500, function () {
+                _this.find('.page').eq(index).siblings().hide();
+            }).show();
+            _this.find('.page').eq(index).siblings().stop().animate({
+                "opacity": 0,
+                'z-index': 0
+            }, 500);
+        }
+        
+	    </script>
+</body>
+</html>
